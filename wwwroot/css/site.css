@@ -1,0 +1,29 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+ 
+}
+.btn:focus {
+    box-shadow: none;
+}
+.btn-list{
+    width: 100%;
+    border-radius: 0;
+    height: 40px;
+}
+.btn-list:hover{
+    background-color: lightgray;
+}
