@@ -10,17 +10,19 @@ namespace MovieApp.Controllers;
 public class CustomerController : Controller
 {
     private readonly IHttpClientFactory _clientFactory;
+    private readonly IConfiguration _config;
 
-    public CustomerController(IHttpClientFactory clientFactory)
+    public CustomerController(IHttpClientFactory clientFactory, IConfiguration config)
     {
         _clientFactory = clientFactory;
+        _config = config;
     }
     [HttpGet]
     public async Task<IActionResult> GetAllCustomers()
     {
         var client = _clientFactory.CreateClient();
 
-        HttpResponseMessage response = await client.GetAsync("https://localhost:7110/Customers/");
+        HttpResponseMessage response = await client.GetAsync(_config.GetConnectionString("Default") + "Customers/");
 
         if (response.IsSuccessStatusCode)
         {
@@ -36,7 +38,7 @@ public class CustomerController : Controller
     {
         var client = _clientFactory.CreateClient();
 
-        HttpResponseMessage response = await client.GetAsync($"https://localhost:7110/Customers/{id}");
+        HttpResponseMessage response = await client.GetAsync(_config.GetConnectionString("Default") + $"Customers/{id}");
 
         if (response.IsSuccessStatusCode)
         {
@@ -57,11 +59,11 @@ public class CustomerController : Controller
 
         var client = _clientFactory.CreateClient();
 
-        HttpResponseMessage response = await client.PutAsync($"https://localhost:7110/Customers/", customerDataJson);
+        HttpResponseMessage response = await client.PutAsync(_config.GetConnectionString("Default") + "Customers/", customerDataJson);
 
         if (response.IsSuccessStatusCode)
         {
-            return View();
+            return RedirectToAction("GetAllCustomers");
         }
         return View();
     }
@@ -70,7 +72,7 @@ public class CustomerController : Controller
     {
         var client = _clientFactory.CreateClient();
 
-        HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7110/Customers/?id={id}");
+        HttpResponseMessage response = await client.DeleteAsync(_config.GetConnectionString("Default") + $"Customers/?id={id}");
 
         if (response.IsSuccessStatusCode)
         {
@@ -94,7 +96,7 @@ public class CustomerController : Controller
                 Encoding.UTF8,
                 Application.Json);
 
-            HttpResponseMessage response = await client.PostAsync("https://localhost:7110/Customers/", customerDataJson);
+            HttpResponseMessage response = await client.PostAsync(_config.GetConnectionString("Default") + "Customers/", customerDataJson);
 
             if (response.IsSuccessStatusCode)
             {
@@ -123,7 +125,7 @@ public class CustomerController : Controller
                 Encoding.UTF8,
                 Application.Json);
 
-            HttpResponseMessage response = await client.PostAsync("https://localhost:7110/Addresses/", customerDataJson);
+            HttpResponseMessage response = await client.PostAsync(_config.GetConnectionString("Default") + "Addresses/", customerDataJson);
 
             if (response.IsSuccessStatusCode)
             {
@@ -149,11 +151,11 @@ public class CustomerController : Controller
                 Encoding.UTF8,
                 Application.Json);
 
-            HttpResponseMessage response = await client.PostAsync("https://localhost:7110/CustomersAddress/", custaddrDataJson);
+            HttpResponseMessage response = await client.PostAsync(_config.GetConnectionString("Default") + "CustomersAddress/", custaddrDataJson);
 
             if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("GetAllCustomers");
             }
         }
         return View();

@@ -23,24 +23,6 @@ namespace MovieApp.Controllers
             //    HttpMethod.Get,
             //    "https://localhost:7110/Customers/"); //{ Headers = { HeaderNames. , "" } }
 
-            //var client = _clientFactory.CreateClient();
-
-            //HttpResponseMessage response = await client.SendAsync(request);
-
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var contentStream = await response.Content.ReadAsStreamAsync();
-
-            //    var data = await JsonSerializer.DeserializeAsync<IEnumerable<customer>>(contentStream);
-            //    Console.WriteLine(data);
-            //}
-
-            //////////////////////////
-            //else
-            //{
-            //    string errorString = "Error";
-            //}
-
             return View();
         }
         public IActionResult Privacy()

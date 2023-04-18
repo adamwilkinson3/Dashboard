@@ -17,7 +17,7 @@ public class address
     [StringLength(189)]
     public string city { get; set; }
     [StringLength(10)]
-    public string postal_code { get; set; }
+    public string? postal_code { get; set; }
     [StringLength(20)]
     public string phone { get; set; }
     public State? state { get; set; }

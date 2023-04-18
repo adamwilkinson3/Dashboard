@@ -11,17 +11,19 @@ namespace MovieApp.Controllers
     public class BusinessController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IConfiguration _config;
 
-        public BusinessController(IHttpClientFactory clientFactory)
+        public BusinessController(IHttpClientFactory clientFactory, IConfiguration config)
         {
             _clientFactory = clientFactory;
+            _config = config;
         }
         [HttpGet]
         public async Task<IActionResult> GetStaff()
         {
             var client = _clientFactory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7110/Staff/");
+            HttpResponseMessage response = await client.GetAsync(_config.GetConnectionString("Default") + "Staff/");
 
             if (response.IsSuccessStatusCode)
             {
@@ -37,7 +39,7 @@ namespace MovieApp.Controllers
         {
             var client = _clientFactory.CreateClient();
 
-            HttpResponseMessage response = await client.GetAsync($"https://localhost:7110/Staff/{id}");
+            HttpResponseMessage response = await client.GetAsync(_config.GetConnectionString("Default") + $"Staff/{id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -58,7 +60,7 @@ namespace MovieApp.Controllers
 
             var client = _clientFactory.CreateClient();
 
-            HttpResponseMessage response = await client.PutAsync($"https://localhost:7110/Staff/", staffDataJson);
+            HttpResponseMessage response = await client.PutAsync(_config.GetConnectionString("Default") + "Staff/", staffDataJson);
 
             if (response.IsSuccessStatusCode)
             {
@@ -70,7 +72,7 @@ namespace MovieApp.Controllers
         {
             var client = _clientFactory.CreateClient();
 
-            HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7110/Staff/?id={id}");
+            HttpResponseMessage response = await client.DeleteAsync(_config.GetConnectionString("Default") + $"Staff/?id={id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -95,7 +97,7 @@ namespace MovieApp.Controllers
                     Encoding.UTF8,
                     Application.Json);
 
-                HttpResponseMessage response = await client.PostAsync("https://localhost:7110/StaffAddress/", staffaddrDataJson);
+                HttpResponseMessage response = await client.PostAsync(_config.GetConnectionString("Default") + "StaffAddress/", staffaddrDataJson);
 
                 if (response.IsSuccessStatusCode)
                 {

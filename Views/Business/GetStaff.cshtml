@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MovieApp.Models.BusinessModels.staff>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Staff";
 }
 
 <h1>Staff</h1>
@@ -23,9 +23,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.active)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.username)
@@ -66,9 +63,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.active)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.username)
